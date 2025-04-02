@@ -18,9 +18,13 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'code',
         'name',
         'email',
-        'password',
+        'type',
+        'active',
+        'registration_date',
+        'password'
     ];
 
     /**
@@ -43,6 +47,36 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'registration_date' => 'date',
+            'active' => 'boolean',
         ];
+    }
+
+    public function loans()
+    {
+        return $this->hasMany(Loan::class);
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function search_histories()
+    {
+        return $this->hasMany(Search_History::class);
+    }
+
+    public function rules(){
+        return [
+            'code' => 'required|string|max:20|unique:users,code',
+            'name' => 'required|string|max:100',
+            'email' => 'required|email|max:100|unique:users,email',
+            'type' => 'required|string|max:100',
+            'active' => 'boolean',
+            'registration_date' => 'date',
+            'password' => 'required|string|min:8|confirmed',
+        ];
+
     }
 }
