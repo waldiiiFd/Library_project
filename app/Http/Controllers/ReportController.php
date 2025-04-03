@@ -28,4 +28,19 @@ class ReportController extends Controller
             'data' => $result
         ]);
     }
+
+    /**
+     * Obtener usuarios con multas pendientes
+     *
+     * @return JsonResponse
+     */
+    public function usersWithFines(): JsonResponse
+    {
+        $result = $this->reportService->getUsersWithFines();
+
+        return response()->json([
+            'success' => true,
+            'data' => $result
+        ]);
+    }
 }

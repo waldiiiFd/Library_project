@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Book;
+use App\Models\Category;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -40,5 +42,42 @@ class ReportService
             ->toArray();
 
         return $popularBooks;
+    }
+
+    /**
+     * Obtener usuarios con multas pendientes
+     *
+     * @return array
+     */
+    public function getUsersWithFines(): array
+    {
+        $usersWithFines = User::select(
+            'users.id',
+            'users.code',
+            'users.name',
+            'users.email',
+            DB::raw('COUNT(fines.id) as fine_count'),
+            DB::raw('SUM(fines.amount) as total_amount')
+        )
+            ->join('loans', 'users.id', '=', 'loans.user_id')
+            ->join('fines', 'loans.id', '=', 'fines.loan_id')
+            ->whereNull('fines.payment_date')
+            ->groupBy('users.id', 'users.code', 'users.name', 'users.email')
+            ->orderByDesc('total_amount')
+            ->get()
+            ->map(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'code' => $user->code,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'fine_count' => $user->fine_count,
+                    'total_amount' => $user->total_amount,
+                    'total_formatted' => '$' . number_format($user->total_amount, 2),
+                ];
+            })
+            ->toArray();
+
+        return $usersWithFines;
     }
 }
