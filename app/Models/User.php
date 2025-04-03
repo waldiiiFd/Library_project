@@ -64,14 +64,14 @@ class User extends Authenticatable
 
     public function search_histories()
     {
-        return $this->hasMany(Search_History::class);
+        return $this->hasMany(SearchHistory::class);
     }
 
-    public function rules(){
+    public static function rules(){
         return [
-            'code' => 'required|string|max:20|unique:users,code',
+            'code' => 'required|string|max:20',
             'name' => 'required|string|max:100',
-            'email' => 'required|email|max:100|unique:users,email',
+            'email' => 'required|email|max:100',
             'type' => 'required|string|max:100',
             'active' => 'boolean',
             'registration_date' => 'date',

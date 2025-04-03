@@ -21,7 +21,7 @@ class Category extends Model
             ->withTimestamps();
     }
 
-    public function rules()
+    public static function rules()
     {
         return [
             'name' => 'required|string|max:50',

@@ -27,10 +27,10 @@ class Author extends Model
     }
 
 
-    public function rules()
+    public static function rules()
     {
         return [
-            'name' => 'required|string|max: 100',
+            'name' => 'required|string|max:100',
             'nacionality' => 'required|string|max:50',
             'birth_date' => 'nullable|date',
         ];

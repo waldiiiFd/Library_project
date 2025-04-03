@@ -35,7 +35,7 @@ class Loan extends Model
     }
 
 
-    public function rules()
+    public static function rules()
     {
         return [
             'user_id' => 'required|exists:users,id',

@@ -54,14 +54,16 @@ class Book extends Model
             ->withTimestamps();
     }
 
-    public function rules()
+    public static function rules()
     {
         return [
-            'title' => 'required' | 'string|max:200',
-            'isbn' => 'required' | 'string|max:20|unique:books,isbn',
-            'publisher_id' => 'required' | 'exists:publishers,id',
-            'year_published' => 'required',
-            
+            'title' => 'required|string|max:200',
+            'isbn' => 'required|string|max:20|unique:books,isbn',
+            'publisher_id' => 'required|exists:publishers,id',
+            'year_published' => 'required|integer',
+            'edition' => 'nullable|integer',
+            'stock_total' => 'nullable|integer',
+            'stock_available' => 'nullable|integer'
         ];
     }
 }

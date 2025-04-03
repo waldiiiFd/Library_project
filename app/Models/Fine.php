@@ -28,7 +28,7 @@ class Fine extends Model
         return $this->belongsTo(Loan::class);
     }
 
-    public function rules()
+    public static function rules()
     {
         return [
             'loan_id' => 'required|exists:loans,id',

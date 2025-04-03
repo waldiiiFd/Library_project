@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Search_history extends Model
+class SearchHistory  extends Model
 {
     /** @use HasFactory<\Database\Factories\SearchHistoryFactory> */
     use HasFactory;
@@ -23,7 +23,7 @@ class Search_history extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function rules()
+    public static function rules()
     {
         return [
             'user_id' => 'required|exists:users,id',

@@ -2,48 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Reservation;
-use Illuminate\Http\Request;
+use App\Services\ReservationService;
 
-class ReservationController extends Controller
+class ReservationController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function __construct(ReservationService $reservationService)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Reservation $reservation)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Reservation $reservation)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Reservation $reservation)
-    {
-        //
+        parent::__construct($reservationService);
     }
 }
