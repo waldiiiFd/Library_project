@@ -25,6 +25,29 @@ class ReportService
             'books.isbn',
             DB::raw('COUNT(loans.id) as loan_count')
         )
+            // ---------------------------------------------------------------
+            // JOIN books → loans: Conexión clave para contar préstamos por libro
+            //
+            // Estructura básica:
+            // ->join('tabla_a_unir', 'tabla_origen.columna', '=', 'tabla_destino.columna')
+            //
+            // Componentes:
+            // 1. 'loans' - Tabla de préstamos a relacionar
+            // 2. 'books.id' - PK (Identificador único del libro)
+            // 3. '=' - Operador que exige coincidencia exacta
+            // 4. 'loans.book_id' - FK que referencia al libro prestado
+            //
+            // Relación resultante:
+            // 1 libro → puede tener → múltiples préstamos (relación 1:N)
+            //
+            // Tipo de JOIN:
+            // INNER JOIN (solo libros con préstamos registrados)
+            //    - Excluye automáticamente libros sin préstamos
+            //    - Para incluirlos: usar leftJoin()
+            //
+            // Equivalente SQL:
+            // INNER JOIN loans ON books.id = loans.book_id
+            // ---------------------------------------------------------------
             ->join('loans', 'books.id', '=', 'loans.book_id')
             ->where('loans.loan_date', '>=', $lastMonth)
             ->groupBy('books.id', 'books.title', 'books.isbn')
@@ -79,5 +102,35 @@ class ReportService
             ->toArray();
 
         return $usersWithFines;
+    }
+
+    /**
+     * Obtener estadísticas de préstamos por categoría
+     *
+     * @return array
+     */
+    public function getLoansByCategory(): array
+    {
+        $loansByCategory = Category::select(
+            'categories.id',
+            'categories.name',
+            DB::raw('COUNT(loans.id) as loan_count')
+        )
+            ->join('book_category', 'categories.id', '=', 'book_category.category_id')
+            ->join('books', 'book_category.book_id', '=', 'books.id')
+            ->join('loans', 'books.id', '=', 'loans.book_id')
+            ->groupBy('categories.id', 'categories.name')
+            ->orderByDesc('loan_count')
+            ->get()
+            ->map(function ($category) {
+                return [
+                    'id' => $category->id,
+                    'name' => $category->name,
+                    'loan_count' => $category->loan_count,
+                ];
+            })
+            ->toArray();
+
+        return $loansByCategory;
     }
 }

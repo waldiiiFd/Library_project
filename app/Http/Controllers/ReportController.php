@@ -43,4 +43,19 @@ class ReportController extends Controller
             'data' => $result
         ]);
     }
+
+    /**
+     * Obtener estadísticas de préstamos por categoría
+     *
+     * @return JsonResponse
+     */
+    public function loansByCategory(): JsonResponse
+    {
+        $result = $this->reportService->getLoansByCategory();
+
+        return response()->json([
+            'success' => true,
+            'data' => $result
+        ]);
+    }
 }
