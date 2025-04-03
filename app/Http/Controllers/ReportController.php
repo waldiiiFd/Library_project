@@ -58,4 +58,19 @@ class ReportController extends Controller
             'data' => $result
         ]);
     }
+
+    /**
+     * Analizar eficiencia de devoluciones por categoría
+     *
+     * @return JsonResponse
+     */
+    public function returnEfficiency(): JsonResponse
+    {
+        $result = $this->reportService->getReturnEfficiency();
+
+        return response()->json([
+            'success' => true,
+            'data' => $result
+        ]);
+    }
 }

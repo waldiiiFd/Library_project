@@ -133,4 +133,46 @@ class ReportService
 
         return $loansByCategory;
     }
+
+    /**
+     * Analizar eficiencia de devoluciones por categoría
+     *
+     * @return array
+     */
+    /**
+     * Analizar eficiencia de devoluciones por categoría
+     *
+     * @return array
+     */
+    public function getReturnEfficiency(): array
+    {
+        $returnEfficiency = Category::select(
+            'categories.id',
+            'categories.name',
+            DB::raw('SUM(CASE WHEN loans.return_date <= loans.expected_return_date THEN 1 ELSE 0 END) as on_time_returns'),
+            DB::raw('SUM(CASE WHEN loans.return_date > loans.expected_return_date THEN 1 ELSE 0 END) as late_returns'),
+            DB::raw('COUNT(loans.id) as total_returns')
+        )
+            ->join('book_category', 'categories.id', '=', 'book_category.category_id')
+            ->join('books', 'book_category.book_id', '=', 'books.id')
+            ->join('loans', 'books.id', '=', 'loans.book_id')
+            ->whereNotNull('loans.return_date')
+            ->groupBy('categories.id', 'categories.name')
+            ->get()
+            ->map(function ($category) {
+                $efficiencyPercentage = $category->total_returns > 0
+                    ? ($category->on_time_returns / $category->total_returns) * 100
+                    : 0;
+
+                return [
+                    'category' => $category->name,
+                    'on_time_returns' => (int)$category->on_time_returns,
+                    'late_returns' => (int)$category->late_returns,
+                    'efficiency_percentage' => number_format($efficiencyPercentage, 2) . '%'
+                ];
+            })
+            ->toArray();
+
+        return $returnEfficiency;
+    }
 }
