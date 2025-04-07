@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Search_history;
+use App\Models\SearchHistory;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 
@@ -29,7 +29,7 @@ class SearchHistorySeeder extends Seeder
             $user = $users->random();
             $searchTerm = $searchTerms[array_rand($searchTerms)];
 
-            Search_history::create([
+            SearchHistory::create([
                 'user_id' => $user->id,
                 'search_term' => $searchTerm,
                 'searched_at' => Carbon::now()->subDays(rand(1, 90))->subHours(rand(1, 24)),
