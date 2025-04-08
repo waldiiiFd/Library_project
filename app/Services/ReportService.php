@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\ViewStatistics;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
