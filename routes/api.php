@@ -28,8 +28,8 @@ Route::resource('/publishers', PublisherController::class); // GET, POST, PUT, D
 Route::resource('/reservations', ReservationController::class); // GET, POST, PUT, DELETE
 Route::resource('/search_histories', SearchHistoryController::class); // GET, POST, PUT, DELETE
 Route::resource('/users', UserController::class); // GET, POST, PUT, DELETE
-Route::resource('book_category', BookCategoryController::class); // GET, POST, PUT, DELETE
-Route::resource('author_book', AuthorBookController::class); // GET, POST, PUT, DELETE
+Route::resource('/book_category', BookCategoryController::class); // GET, POST, PUT, DELETE
+Route::resource('/author_book', AuthorBookController::class); // GET, POST, PUT, DELETE
 
 Route::prefix('reports')->group(function () {
     Route::get('/popular-books', [ReportController::class, 'popularBooks']);
