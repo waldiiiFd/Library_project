@@ -35,6 +35,7 @@ Route::resource('/author_book', AuthorBookController::class); // GET, POST, PUT,
 Route::prefix('reports')->group(function () {
     Route::get('/popular-books', [ReportController::class, 'popularBooks']);
     Route::get('/defaulters', [ReportController::class, 'usersWithFines']);
-    Route::get('/stadistics', [ViewStatisticsController::class, 'index']);
-//    Route::resource('/efficiency-returns', ViewStatisticsController::class)->only('index');
+    /* Route::get('/stadistics', [ReportController::class, 'loansByCategory']); */
+    Route::get('/stadistics', [ViewStatisticsController::class, 'index']); //Esto es lo mismo de arriba pero como se debe hacer
+//  Route::resource('/efficiency-returns', ViewStatisticsController::class)->only('index');
 });
