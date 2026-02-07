@@ -3,13 +3,12 @@
 namespace App\Services;
 
 use App\Models\Author;
+use Ronu\RestGenericClass\Core\Services\BaseService;
 
-class AuthorService extends BaseService {
-
-    /**
-     * The model class associated with this service
-     *
-     * @var string
-     */
-    protected $modelClass = Author::class;
+class AuthorService extends BaseService
+{
+    public function __construct()
+    {
+        parent::__construct(Author::class);
+    }
 }

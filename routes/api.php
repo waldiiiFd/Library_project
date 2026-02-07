@@ -20,7 +20,11 @@ use Illuminate\Support\Facades\Route;
 })->middleware('auth:sanctum');
  */
 
-Route::resource('/authors', AuthorController::class); // GET, POST, PUT, DELETE
+/* Route::resource('/authors', AuthorController::class); // GET, POST, PUT, DELETE */
+Route::prefix('v1')->group(function () {
+    Route::apiResource('author', AuthorController::class);
+    Route::post('author/update-multiple', [AuthorController::class, 'updateMultiple']);
+});
 Route::resource('/books', BookController::class); // GET, POST, PUT, DELETE
 Route::resource('/categories', CategoryController::class); // GET, POST, PUT, DELETE
 Route::resource('/fines', FineController::class); // GET, POST, PUT, DELETE

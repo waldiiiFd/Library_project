@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Services\AuthorService;
+use Ronu\RestGenericClass\Core\Controllers\RestController;
 
-class AuthorController extends BaseController {
+class AuthorController extends RestController
+{
 
-    public function __construct(AuthorService $authorService)
+
+    public function __construct(AuthorService $service)
     {
-        parent::__construct($authorService);
+        $this->modelClass = Author::class;
+        $this->service = $service;
     }
 }

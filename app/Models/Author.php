@@ -1,38 +1,22 @@
 <?php
 
 namespace App\Models;
+use Ronu\RestGenericClass\Core\Models\BaseModel;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class Author extends Model
+class Author extends BaseModel
 {
-    /** @use HasFactory<\Database\Factories\AuthorFactory> */
-    use HasFactory;
 
     protected $fillable = [
         'name',
         'nacionality',
         'birth_date',
     ];
-
-    protected $casts = [
-        'birth_date' => 'date'
-    ];
+    const MODEL = 'author';
+    const RELATIONS = ['books'];
 
     public function books()
     {
         return $this->belongsToMany(Book::class)
             ->withTimestamps();
-    }
-
-
-    public static function rules()
-    {
-        return [
-            'name' => 'required|string|max:100',
-            'nacionality' => 'required|string|max:50',
-            'birth_date' => 'nullable|date',
-        ];
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "85c1d2065f70e38b0d6bf66559fb13c5",
+    "content-hash": "6852263761fe6a8ebb13eb23b24b67cd",
     "packages": [
         {
             "name": "brick/math",
@@ -3349,6 +3349,65 @@
                 }
             ],
             "time": "2024-04-27T21:32:50+00:00"
+        },
+        {
+            "name": "ronu/rest-generic-class",
+            "version": "1.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/charlietyn/rest-generic-class.git",
+                "reference": "2ceb5acecb17b3c85e1c3b950a07bc872e209f0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/charlietyn/rest-generic-class/zipball/2ceb5acecb17b3c85e1c3b950a07bc872e209f0c",
+                "reference": "2ceb5acecb17b3c85e1c3b950a07bc872e209f0c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^12.0",
+                "illuminate/http": "^12.0",
+                "illuminate/mail": "^12.0",
+                "illuminate/pagination": "^12.0",
+                "illuminate/support": "^12.0",
+                "illuminate/validation": "^12.0",
+                "php": "^8.0"
+            },
+            "suggest": {
+                "barryvdh/laravel-dompdf": "Required for exportPdf()",
+                "maatwebsite/excel": "Required for exportExcel()",
+                "nwidart/laravel-modules": "Required for module-aware permissions",
+                "spatie/laravel-permission": "Required for permission models and traits"
+            },
+            "type": "vcs",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Ronu\\RestGenericClass\\Core\\Providers\\RestGenericClassServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ronu\\RestGenericClass\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "charlietyn",
+                    "email": "charlietyn@gmail.com"
+                }
+            ],
+            "description": "Base Class for generic restfull api in laravel",
+            "support": {
+                "issues": "https://github.com/charlietyn/rest-generic-class/issues",
+                "source": "https://github.com/charlietyn/rest-generic-class/tree/v1.9.1"
+            },
+            "time": "2026-02-04T20:38:50+00:00"
         },
         {
             "name": "symfony/clock",
@@ -8136,5 +8195,5 @@
         "php": "^8.2"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
